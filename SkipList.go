@@ -56,6 +56,7 @@ func (sl *SkipList) insert( key int) bool {
 	temp = sl.head
 	k := sl.lvl
  
+	// Search
 	for i := k; i >= 0; i-- { 
 		for temp != nil && temp.forward[i] != nil && temp.forward[i].key < key {
 			temp = temp.forward[i]
@@ -94,7 +95,7 @@ func (sl *SkipList) delete(key int) bool {
 	update := make([]*Node, MAX_LEVEL, MAX_LEVEL)
 	temp := sl.head
  
-	for i := sl.lvl; i >= 0; i-- {
+	for i := sl.lvl -1; i >= 0; i-- {
 		for temp != nil && temp.forward[i] != nil && temp.forward[i].key < key {
 			temp = temp.forward[i]
 		}
@@ -107,7 +108,7 @@ func (sl *SkipList) delete(key int) bool {
 	}
  
 	deleteN := temp.forward[0]
-	for i := sl.lvl; i >= 0; i-- {
+	for i := sl.lvl -1 ; i >= 0; i-- {
 		if update[i] != nil && update[i].forward[i] == deleteN {
 			update[i].forward[i] = deleteN.forward[i]
 			if sl.head.forward[i] == nil {
@@ -121,7 +122,7 @@ func (sl *SkipList) delete(key int) bool {
 func (sl *SkipList) search(key int) int {
 	var temp *Node
 	temp = sl.head
-	for i := sl.lvl; i >= 0; i-- {
+	for i := sl.lvl -1 ; i >= 0; i-- {
 		for temp != nil && temp.forward[i] != nil && temp.forward[i].key <= key {
 			if temp.forward[i].key == key {
 				return temp.forward[i].key
@@ -140,12 +141,18 @@ func (sl *SkipList) print() {
 	fmt.Println("Key:Next")
 
 	for i := sl.lvl; i >= 0; i-- {
-		fmt.Println("Level:", i)
-		for temp != nil && temp.forward[i] != nil {
-			if (temp.forward[i] == nil){
+		fmt.Println("\nLevel:", i)
+		if temp != nil {
+			//fmt.Print(temp.key, " -> ")
+		}
+		for temp != nil {//&& temp.forward[i] != nil {
+			if (temp.forward[i] != nil){
+				fmt.Print(temp.forward[i].key, " -> ")
+			} else {
+				//fmt.Print(temp.key, " -> ")
 				break
 			}
-			fmt.Print(temp.key, ":", temp.forward[i].key, " -> ")
+			
 			temp = temp.forward[i]
 		}
 	}
@@ -160,11 +167,11 @@ func main() {
 	// 	sl.insert(i)
 	// }
 	sl.insert(1)
+	
+	sl.insert(2)
+	
+	sl.insert(3)
 	sl.print()
-	// sl.insert(2)
-	// sl.print()
-	// sl.insert(3)
-	// sl.print()
  
 	// fmt.Println(sl.search(3))
 	// fmt.Println(sl.delete(3))
