@@ -1,11 +1,11 @@
-package main
+package linkedList
 
 import "fmt"
 
 type Node struct {
-	prev *Node
-	next *Node
-	value interface{}
+	prev  *Node
+	next  *Node
+	value interface{} // TODO: make this typed
 }
 
 type LinkedList struct {
@@ -14,9 +14,13 @@ type LinkedList struct {
 	size int
 }
 
+func New() LinkedList {
+	return LinkedList{}
+}
+
 func (l *LinkedList) Insert(value interface{}) {
 	list := &Node{
-		prev: l.tail,
+		prev:  l.tail,
 		value: value,
 	}
 
@@ -57,17 +61,4 @@ func (l *LinkedList) Print() {
 		list = list.next
 	}
 	fmt.Println(" Tail")
-}
-
-func main() {
-	linkedList := LinkedList{}
-	linkedList.Insert(1)
-	linkedList.Insert(4)
-	linkedList.Insert(7)
-	linkedList.Insert(10)
-	linkedList.Insert(21)
-	linkedList.Print()
-	linkedList.Delete(10)
-	linkedList.Print()
-
 }
