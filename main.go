@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/sgrumley/DataStructures/binaryTree"
 	"github.com/sgrumley/DataStructures/disjointSet"
 	"github.com/sgrumley/DataStructures/linkedList"
 	"github.com/sgrumley/DataStructures/queue"
@@ -74,4 +75,26 @@ func main() {
 
 	fmt.Println("**************************** SKIP LIST ****************************")
 	fmt.Println("Work in progress")
+
+	fmt.Println("**************************** BINARY TREE ****************************")
+	bTree := binaryTree.New()
+	bTree.Add(87)
+	bTree.Add(6)
+	bTree.Add(234)
+	bTree.Add(35)
+	bTree.Add(136)
+	bTree.Add(46)
+	bTree.List()
+
+	fmt.Println("**************************** BINARY TREE SLICE ****************************")
+	bTreeS := binaryTree.NewBTSlice(15)
+	bTreeS.AddRoot("A")
+	bTreeS.AddLeft("B", 0)
+	bTreeS.AddRight("C", 0)
+	bTreeS.AddLeft("D", 1)
+	bTreeS.AddLeft("E", 2)
+	bTreeS.AddLeft("F", 3)
+	bTreeS.AddLeft("G", 5)
+	bTreeS.List()
+
 }
